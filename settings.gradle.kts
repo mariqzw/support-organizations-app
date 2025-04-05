@@ -1,4 +1,5 @@
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google {
             content {
@@ -21,4 +22,18 @@ dependencyResolutionManagement {
 
 rootProject.name = "SupportOrganizationsApp"
 include(":app")
- 
+include(":core:common")
+include(":core:data")
+include(":core:database")
+include(":core:domain")
+include(":core:model")
+include(":core:network")
+include(":core:reporting")
+include(":core:testing")
+include(":core:ui")
+include(":feature:ui-auth")
+include(":feature:ui-map-metro")
+include(":feature:ui-applications")
+include(":feature:ui-add-applications")
+include(":feature:ui-profile")
+include(":feature:ui-chats")
