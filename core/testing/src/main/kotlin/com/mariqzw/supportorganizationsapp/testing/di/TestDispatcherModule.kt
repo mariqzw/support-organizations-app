@@ -13,16 +13,16 @@ val provideTestDispatcherModule = module {
         UnconfinedTestDispatcher()
     }
 
-    single<CoroutineDispatcher>(named(VcDispatchers.DEFAULT.name)) {
+    single<CoroutineDispatcher>(named(SoDispatchers.DEFAULT.name)) {
         get<TestDispatcher>()
     }
 
-    single<CoroutineDispatcher>(named(VcDispatchers.IO.name)) {
+    single<CoroutineDispatcher>(named(SoDispatchers.IO.name)) {
         get<TestDispatcher>()
     }
 }
 
-enum class VcDispatchers {
+enum class SoDispatchers {
     IO,
     DEFAULT
 }
