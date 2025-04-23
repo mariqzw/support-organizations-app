@@ -2,6 +2,9 @@ package com.mariqzw.supportorganizationsapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Light theme
+ */
 val primaryLight = Color(0xFF465D91)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFD9E2FF)
@@ -38,6 +41,9 @@ val surfaceContainerLight = Color(0xFFEEEDF4)
 val surfaceContainerHighLight = Color(0xFFE8E7EF)
 val surfaceContainerHighestLight = Color(0xFFE2E2E9)
 
+/**
+ * Dark theme
+ */
 val primaryDark = Color(0xFFAFC6FF)
 val onPrimaryDark = Color(0xFF132F60)
 val primaryContainerDark = Color(0xFF2D4678)

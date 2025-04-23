@@ -46,6 +46,21 @@ data class Dimensions(
     /**
      * Other dimensions
      */
+    val zeroSize: Dp = 0.dp,
+    val borderWith: Dp = 1.dp,
+    val circularStrokeWith: Dp = 3.5.dp,
+    val defaultIconButtonPadding: Dp = 8.dp,
+    val defaultCardPadding: Dp = 8.dp,
+    val defaultCornerRadius: Dp = 12.dp,
+    val defaultPaddingSize: Dp = 16.dp,
+    val iconDefaultSize: Dp = 24.dp,
+    val dropDownMenuMinHeight: Dp = 40.dp,
+    val defaultFieldHeight: Dp = 40.dp,
+    val iconLargeSize: Dp = 48.dp,
+    val defaultNavBarHeight: Dp = 56.dp,
+    val defaultPhotoCardSize: Dp = 80.dp,
+    val maxTopBarImageHeight: Dp = 128.dp,
+    val authScreensImageHeight: Dp = 200.dp,
 )
 
 val LocalDimensions = compositionLocalOf { Dimensions() }
