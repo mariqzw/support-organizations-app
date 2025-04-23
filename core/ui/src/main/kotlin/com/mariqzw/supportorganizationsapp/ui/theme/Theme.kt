@@ -93,17 +93,17 @@ private val darkScheme = darkColorScheme(
     surfaceContainerHighest = surfaceContainerHighestDark,
 )
 
-@Immutable
-data class ColorFamily(
-    val color: Color,
-    val onColor: Color,
-    val colorContainer: Color,
-    val onColorContainer: Color
-)
-
-val unspecified_scheme = ColorFamily(
-    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified
-)
+//@Immutable
+//data class ColorFamily(
+//    val color: Color,
+//    val onColor: Color,
+//    val colorContainer: Color,
+//    val onColorContainer: Color
+//)
+//
+//val unspecified_scheme = ColorFamily(
+//    Color.Unspecified, Color.Unspecified, Color.Unspecified, Color.Unspecified
+//)
 
 @Composable
 fun SupportOrganizationsAppTheme(
@@ -112,15 +112,17 @@ fun SupportOrganizationsAppTheme(
     dynamicColor: Boolean = true,
     content: @Composable() () -> Unit
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val colorScheme = lightScheme
 
-        darkTheme -> darkScheme
-        else -> lightScheme
-    }
+//    val colorScheme = when {
+//        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+//            val context = LocalContext.current
+//            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+//        }
+//
+//        darkTheme -> darkScheme
+//        else -> lightScheme
+//    }
 //    val view = LocalView.current
 //    if (!view.isInEditMode) {
 //        SideEffect {
