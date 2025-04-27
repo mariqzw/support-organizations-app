@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
@@ -26,8 +25,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
+import com.mariqzw.supportorganizationsapp.ui.theme.MediumRoboto12
+import com.mariqzw.supportorganizationsapp.ui.theme.MediumRoboto16
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
 import com.mariqzw.supportorganizationsapp.ui.theme.errorLight
 import com.mariqzw.supportorganizationsapp.ui.theme.onBackgroundLight
@@ -83,14 +83,14 @@ fun PrimaryTextField(
             label = {
                 Text(
                     text = labelText,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MediumRoboto12
                 )
             },
             placeholder = {
                 if (!isFocused && value.isEmpty()) {
                     Text(
                         text = labelText,
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MediumRoboto16
                     )
                 }
             },
@@ -109,10 +109,7 @@ fun PrimaryTextField(
                     }
                 }
             },
-            textStyle = MaterialTheme.typography.bodyLarge.copy(
-                color = onBackgroundLight,
-                lineHeight = 24.sp
-            ),
+            textStyle = MediumRoboto16,
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedContainerColor = backgroundLight,
                 unfocusedBorderColor = borderColor,
@@ -134,7 +131,7 @@ fun PrimaryTextField(
                 Text(
                     text = errorText,
                     color = errorLight,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MediumRoboto12,
                     modifier = Modifier.padding(dimensions.verticalXXSmall)
                 )
             }
