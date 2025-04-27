@@ -49,7 +49,9 @@ data class Dimensions(
     val zeroSize: Dp = 0.dp,
     val borderWith: Dp = 1.dp,
     val circularStrokeWith: Dp = 3.dp,
-    val roundedShape: Dp = 12.dp
+    val defaultElevation: Dp = 8.dp,
+    val roundedShape: Dp = 12.dp,
+    val verticalHorizontalPadding: Dp = 12.dp
 )
 
 val LocalDimensions = compositionLocalOf { Dimensions() }
