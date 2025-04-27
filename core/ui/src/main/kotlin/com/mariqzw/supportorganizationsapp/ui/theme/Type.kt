@@ -3,11 +3,12 @@ package com.mariqzw.supportorganizationsapp.ui.theme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.mariqzw.supportorganizationsapp.ui.R
 
-// Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -18,51 +19,53 @@ val Typography = Typography(
     )
 )
 
-val RegularTextStyle = TextStyle(
+val SupportOrganizationsAppRobotoFamily = FontFamily(
+    Font(R.font.roboto_medium, FontWeight.Medium),
+    Font(R.font.roboto_regular, FontWeight.Normal)
+)
+
+private val RegularRobotoStyle = TextStyle(
+    fontFamily = SupportOrganizationsAppRobotoFamily,
     fontWeight = FontWeight.Normal,
-    color = onBackgroundLight,
     platformStyle = PlatformTextStyle(
         includeFontPadding = false
     )
 )
 
-val MediumTextStyle = TextStyle(
+private val MediumRobotoStyle = TextStyle(
+    fontFamily = SupportOrganizationsAppRobotoFamily,
     fontWeight = FontWeight.Medium,
-    color = onBackgroundLight,
     platformStyle = PlatformTextStyle(
         includeFontPadding = false
     )
 )
 
-val SemiBoldTextStyle = TextStyle(
-    fontWeight = FontWeight.SemiBold,
-    color = onBackgroundLight,
-    platformStyle = PlatformTextStyle(
-        includeFontPadding = false
-    )
+val RegularRoboto32 = RegularRobotoStyle.copy(
+    fontSize = 32.sp,
+    lineHeight = 40.sp
+)
+val RegularRoboto24 = RegularRobotoStyle.copy(
+    fontSize = 24.sp,
+    lineHeight = 32.sp
+)
+val RegularRoboto16 = RegularRobotoStyle.copy(
+    fontSize = 16.sp,
+    lineHeight = 24.sp
+)
+val RegularRoboto14 = RegularRobotoStyle.copy(
+    fontSize = 14.sp,
+    lineHeight = 20.sp
 )
 
-val BoldTextStyle = TextStyle(
-    fontWeight = FontWeight.Bold,
-    color = onBackgroundLight,
-    platformStyle = PlatformTextStyle(
-        includeFontPadding = false
-    )
+val MediumRoboto16 = MediumRobotoStyle.copy(
+    fontSize = 16.sp,
+    lineHeight = 24.sp
 )
-
-val RegularText12 = RegularTextStyle.copy(fontSize = 12.sp)
-val RegularText14 = RegularTextStyle.copy(fontSize = 14.sp)
-val RegularText16 = RegularTextStyle.copy(fontSize = 16.sp)
-
-val MediumText14 = MediumTextStyle.copy(fontSize = 14.sp)
-val MediumText12 = MediumTextStyle.copy(fontSize = 12.sp)
-val MediumText16 = MediumTextStyle.copy(fontSize = 16.sp)
-
-val SemiBoldText12 = SemiBoldTextStyle.copy(fontSize = 12.sp)
-val SemiBoldText14 = SemiBoldTextStyle.copy(fontSize = 14.sp)
-val SemiBoldText16 = SemiBoldTextStyle.copy(fontSize = 16.sp)
-val SemiBoldText24 = SemiBoldTextStyle.copy(fontSize = 24.sp)
-
-val BoldText14 = BoldTextStyle.copy(fontSize = 14.sp)
-val BoldText16 = BoldTextStyle.copy(fontSize = 16.sp)
-val BoldText22 = BoldTextStyle.copy(fontSize = 22.sp)
+val MediumRoboto14 = MediumRobotoStyle.copy(
+    fontSize = 14.sp,
+    lineHeight = 20.sp
+)
+val MediumRoboto12 = MediumRobotoStyle.copy(
+    fontSize = 12.sp,
+    lineHeight = 16.sp
+)
