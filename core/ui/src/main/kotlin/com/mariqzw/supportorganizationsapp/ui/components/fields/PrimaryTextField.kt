@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
 import com.mariqzw.supportorganizationsapp.ui.theme.MediumRoboto12
-import com.mariqzw.supportorganizationsapp.ui.theme.MediumRoboto16
+import com.mariqzw.supportorganizationsapp.ui.theme.RegularRoboto16
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
 import com.mariqzw.supportorganizationsapp.ui.theme.errorLight
 import com.mariqzw.supportorganizationsapp.ui.theme.onBackgroundLight
@@ -90,7 +90,7 @@ fun PrimaryTextField(
                 if (!isFocused && value.isEmpty()) {
                     Text(
                         text = labelText,
-                        style = MediumRoboto16
+                        style = RegularRoboto16
                     )
                 }
             },
@@ -109,7 +109,7 @@ fun PrimaryTextField(
                     }
                 }
             },
-            textStyle = MediumRoboto16,
+            textStyle = RegularRoboto16,
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedContainerColor = backgroundLight,
                 unfocusedBorderColor = borderColor,
