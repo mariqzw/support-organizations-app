@@ -51,7 +51,10 @@ data class Dimensions(
     val circularStrokeWith: Dp = 3.dp,
     val defaultElevation: Dp = 8.dp,
     val roundedShape: Dp = 12.dp,
-    val verticalHorizontalPadding: Dp = 12.dp
+    val verticalHorizontalPadding: Dp = 12.dp,
+    val iconSize: Dp = 32.dp,
+    val topBarHeight: Dp = 64.dp,
+    val bottomNavBarHeight: Dp = 120.dp
 )
 
 val LocalDimensions = compositionLocalOf { Dimensions() }
