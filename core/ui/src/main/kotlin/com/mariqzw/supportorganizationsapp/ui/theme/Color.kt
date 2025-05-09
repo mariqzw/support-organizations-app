@@ -79,3 +79,8 @@ val surfaceContainerLowDark = Color(0xFF1A1B20)
 val surfaceContainerDark = Color(0xFF1E1F25)
 val surfaceContainerHighDark = Color(0xFF282A2F)
 val surfaceContainerHighestDark = Color(0xFF33353A)
+
+/**
+ * Opacity colors
+ */
+val onSurfaceLightOpacity08 = onSurfaceLight.copy(alpha = 0.8f)
