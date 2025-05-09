@@ -48,12 +48,13 @@ data class Dimensions(
      */
     val zeroSize: Dp = 0.dp,
     val borderWith: Dp = 1.dp,
+    val defaultElevation: Dp = 2.dp,
     val circularStrokeWith: Dp = 3.dp,
-    val defaultElevation: Dp = 8.dp,
     val roundedShape: Dp = 12.dp,
     val verticalHorizontalPadding: Dp = 12.dp,
     val iconSize: Dp = 32.dp,
-    val topBarHeight: Dp = 64.dp,
+    val screenPadding: Dp = 32.dp,
+    val topBarHeight: Dp = 56.dp,
     val bottomNavBarHeight: Dp = 120.dp
 )
 
