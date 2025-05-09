@@ -17,12 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
 import com.mariqzw.supportorganizationsapp.ui.theme.MediumRoboto16
 import com.mariqzw.supportorganizationsapp.ui.theme.RegularRoboto14
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
-import com.mariqzw.supportorganizationsapp.ui.theme.onBackgroundLight
+import com.mariqzw.supportorganizationsapp.ui.theme.onSurfaceLight
 import com.mariqzw.supportorganizationsapp.ui.theme.surfaceContainerLowLight
 
 @Composable
@@ -37,14 +36,13 @@ fun PrimaryCard(
 
     Card(
         modifier = modifier
-            .padding(dimensions.verticalMedium)
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = surfaceContainerLowLight,
-            contentColor = onBackgroundLight
+            contentColor = onSurfaceLight
         ),
         shape = RoundedCornerShape(dimensions.roundedShape),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = dimensions.defaultElevation),
     ) {
         val contentColor = LocalContentColor.current
 
