@@ -47,7 +47,10 @@ fun PrimaryTextField(
     onValueChange: (String) -> Unit,
     @DrawableRes trailingIconResId: Int? = null,
     trailingIconModifier: Modifier = Modifier,
-    onTrailingIconClick: () -> Unit = {}
+    onTrailingIconClick: () -> Unit = {},
+    singleLine: Boolean = true,
+    maxLines: Int = 1,
+    readOnly: Boolean = false
 ) {
     val dimensions = LocalDimensions.current
 
@@ -75,7 +78,8 @@ fun PrimaryTextField(
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = Modifier
+            readOnly = readOnly,
+            modifier = modifier
                 .fillMaxWidth()
                 .onFocusChanged { state ->
                     isFocused = state.isFocused
@@ -95,7 +99,8 @@ fun PrimaryTextField(
                 }
             },
             isError = isError,
-            singleLine = true,
+            singleLine = singleLine,
+            maxLines = maxLines,
             visualTransformation = visualTransformation,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             trailingIcon = {

@@ -75,7 +75,6 @@ fun PasswordTextFieldPreview() {
                 .padding(16.dp)
         ) {
             PasswordTextField(
-                modifier = Modifier,
                 value = text,
                 labelText = "Пароль",
                 isError = isError,
