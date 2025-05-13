@@ -22,6 +22,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "SupportOrganizationsApp"
 include(":app")
+include(":app-companion")
 include(":core:common")
 include(":core:data")
 include(":core:database")

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryLight">#FF6200EE</color>
+    <color name="onPrimaryLight">#FFFFFFFF</color>
+    <color name="primaryContainerLight">#FFBB86FC</color>
+    <color name="onPrimaryContainerLight">#FF3700B3</color>
+
+    <color name="secondaryLight">#FF03DAC5</color>
+    <color name="onSecondaryLight">#FF000000</color>
+    <color name="secondaryContainerLight">#FF018786</color>
+    <color name="onSecondaryContainerLight">#FFFFFFFF</color>
+
+    <color name="tertiaryLight">#FF6200EE</color>
+    <color name="onTertiaryLight">#FFFFFFFF</color>
+    <color name="tertiaryContainerLight">#FFBB86FC</color>
+    <color name="onTertiaryContainerLight">#FF3700B3</color>
+
+    <color name="errorLight">#FFB00020</color>
+    <color name="onErrorLight">#FFFFFFFF</color>
+    <color name="errorContainerLight">#FFCF6679</color>
+    <color name="onErrorContainerLight">#FF000000</color>
+
+    <color name="backgroundLight">#FFFFFFFF</color>
+    <color name="onBackgroundLight">#FF000000</color>
+
+    <color name="surfaceLight">#FFFFFFFF</color>
+    <color name="onSurfaceLight">#FF000000</color>
+
+    <color name="surfaceVariantLight">#FFE1E2E7</color>
+    <color name="onSurfaceVariantLight">#FF49454F</color>
+
+    <color name="outlineLight">#FF737373</color>
+    <color name="outlineVariantLight">#FFE1E2E7</color>
+
+    <color name="scrimLight">#66000000</color>
+
+    <color name="inverseSurfaceLight">#FF303030</color>
+    <color name="inverseOnSurfaceLight">#FFFFFFFF</color>
+    <color name="inversePrimaryLight">#FF6200EE</color>
+
+    <color name="surfaceDimLight">#FFE1E2E7</color>
+    <color name="surfaceBrightLight">#FFFFFFFF</color>
+
+    <color name="surfaceContainerLowestLight">#FFFFFFFF</color>
+    <color name="surfaceContainerLowLight">#FFE1E2E7</color>
+    <color name="surfaceContainerLight">#FFE1E2E7</color>
+    <color name="surfaceContainerHighLight">#FFE1E2E7</color>
+    <color name="surfaceContainerHighestLight">#FFE1E2E7</color>
+</resources>
