@@ -54,7 +54,9 @@ data class Dimensions(
     val verticalHorizontalPadding: Dp = 12.dp,
     val iconSize: Dp = 32.dp,
     val screenPadding: Dp = 32.dp,
+    val messageAvatar: Dp = 48.dp,
     val topBarHeight: Dp = 56.dp,
+    val sizeOfProfilePhoto: Dp = 96.dp,
     val bottomNavBarHeight: Dp = 120.dp
 )
 
