@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -23,15 +24,17 @@ import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
 import com.mariqzw.supportorganizationsapp.ui.theme.onBackgroundLight
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun TopBar(
     title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     showArrow: Boolean = false,
-    onClick: () -> Unit
 ) {
     val dimensions = LocalDimensions.current
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(dimensions.topBarHeight)
             .background(backgroundLight),
