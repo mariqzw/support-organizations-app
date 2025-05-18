@@ -4,11 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AuthNetworkResponse(
-    val id: Long,
+    val userId: Long,
     val accessToken: String,
     val refreshToken: String,
-    val accessTokenExpiresIn: Int,
-    val refreshTokenExpiresIn: Int
+    val isAuthenticated: Boolean
 )
 
 /**
@@ -16,10 +15,9 @@ data class AuthNetworkResponse(
  */
 fun AuthNetworkResponse.asUserAuthDataStore(): AuthDataStore = with(this) {
     AuthDataStore(
-        id = id,
+        userId = userId,
         accessToken = accessToken,
         refreshToken = refreshToken,
-        accessTokenExpiresIn = accessTokenExpiresIn,
-        refreshTokenExpiresIn = refreshTokenExpiresIn
+        isAuthenticated = isAuthenticated
     )
 }
