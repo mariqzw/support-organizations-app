@@ -8,7 +8,7 @@ android {
     namespace = "com.mariqzw.supportorganizationsapp.network"
 
     defaultConfig {
-        buildConfigField("String", "WEB_HOST", "\"192.168.0.203\"") // TODO: Изменить IP
+        buildConfigField("String", "WEB_HOST", "\"192.168.240.151\"") // TODO: Изменить IP
     }
 
     buildFeatures {

@@ -11,10 +11,16 @@ sealed interface Route {
     data object RegistrationScreen: Route
 
     @Serializable
+    data object SignUpScreen: Route
+
+    @Serializable
     data object MapScreen: Route
 
     @Serializable
     data object ApplicationsListScreen: Route
+
+    @Serializable
+    data object ApplicationsCompanionListScreen: Route
 
     @Serializable
     data object AddApplicationsScreen: Route
@@ -27,4 +33,17 @@ sealed interface Route {
 
     @Serializable
     data object SettingsScreen: Route
+
+    @Serializable
+    data class ApplicationCompanionDetailsScreen(
+        val date: String,
+        val time: String,
+        val startPoint: String,
+        val endPoint: String,
+        val status: String,
+        val comment: String = ""
+    ) : Route
+
+    @Serializable
+    data object SplashScreen: Route
 }
