@@ -36,6 +36,7 @@ target-sdk = "35"
 compile-sdk = "35"
 version-code = "1"
 version-name = "0.1"
+lifecycle-viewmodel-android = "2.9.0"
 
 [libraries]
 gradle-plugin-android = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
@@ -125,6 +126,7 @@ ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serializatio
 io-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycle-viewmodel-android" }
 
 
 [plugins]
