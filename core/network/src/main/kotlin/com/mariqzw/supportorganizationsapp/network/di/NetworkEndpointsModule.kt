@@ -1,4 +1,4 @@
-package com.mariqzw.supportorganizationsapp.di
+package com.mariqzw.supportorganizationsapp.network.di
 
 import com.mariqzw.supportorganizationsapp.network.BuildConfig
 import org.koin.core.qualifier.named
