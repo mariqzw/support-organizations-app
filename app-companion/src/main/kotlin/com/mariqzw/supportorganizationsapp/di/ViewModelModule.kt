@@ -6,6 +6,8 @@ import org.koin.dsl.module
 
 val provideViewModelModule = module {
     viewModel {
-        MainActivityViewModel()
+        MainActivityViewModel(
+            authDataStore = get()
+        )
     }
 }
