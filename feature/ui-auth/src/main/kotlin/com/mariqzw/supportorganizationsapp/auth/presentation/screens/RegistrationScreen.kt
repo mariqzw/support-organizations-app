@@ -8,14 +8,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.navigation.NavController
+import com.mariqzw.supportorganizationsapp.auth.presentation.viewmodels.RegisterScreenState
+import com.mariqzw.supportorganizationsapp.auth.presentation.viewmodels.RegistrationViewModel
+import com.mariqzw.supportorganizationsapp.domain.navigation.Route
 import com.mariqzw.supportorganizationsapp.ui.components.buttons.PrimaryButton
 import com.mariqzw.supportorganizationsapp.ui.components.fields.PasswordTextField
 import com.mariqzw.supportorganizationsapp.ui.components.fields.PrimaryTextField
@@ -23,24 +26,39 @@ import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
 import com.mariqzw.supportorganizationsapp.ui.theme.RegularRoboto14
 import com.mariqzw.supportorganizationsapp.ui.theme.RegularRoboto24
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
-import timber.log.Timber
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RegistrationScreen(
     onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
+    navController: NavController,
+    viewModel: RegistrationViewModel = koinViewModel()
 ) {
-    var phoneNumber by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var surname by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
-    val isError = password.length < 8 && password.isNotEmpty()
-
-
     val dimensions = LocalDimensions.current
 
+    val uiState by viewModel.state.collectAsState(initial = RegisterScreenState.Init)
+
+    val phone by viewModel.number.collectAsState()
+    val email by viewModel.email.collectAsState()
+    val firstName by viewModel.firstName.collectAsState()
+    val lastName by viewModel.lastName.collectAsState()
+    val password by viewModel.password.collectAsState()
+
+    val numberError by viewModel.numberErr.collectAsState()
+    val emailError by viewModel.emailErr.collectAsState()
+    val firstNameError by viewModel.firstNameErr.collectAsState()
+    val lastNameError by viewModel.lastNameErr.collectAsState()
+    val passwordError by viewModel.passwordErr.collectAsState()
+
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is RegisterScreenState.Success -> {
+                navController.navigate(Route.MapScreen)
+            }
+
+            else -> {}
+        }
+    }
 
     Surface(
         color = backgroundLight
@@ -60,63 +78,51 @@ fun RegistrationScreen(
             )
 
             PrimaryTextField(
-                value = phoneNumber,
-                onValueChange = {
-                    phoneNumber = it
-                    Timber.d("textForField", phoneNumber)
-                },
+                value = phone,
+                onValueChange = viewModel::onNumberChanged,
                 labelText = "Телефон",
-                isError = false,
+                isError = numberError != null,
+                keyboardType = KeyboardType.Phone,
                 errorText = "Введено некорректное значение"
             )
 
             PrimaryTextField(
                 value = email,
-                onValueChange = {
-                    email = it
-                    Timber.d("textForField", email)
-                },
+                onValueChange = viewModel::onEmailChanged,
                 labelText = "Электронная почта",
-                isError = false,
+                isError = emailError != null,
+                keyboardType = KeyboardType.Email,
                 errorText = "Введено некорректное значение"
             )
 
             PrimaryTextField(
-                value = name,
-                onValueChange = {
-                    name = it
-                    Timber.d("textForField", name)
-                },
+                value = firstName,
+                onValueChange = viewModel::onFirstNameChanged,
                 labelText = "Имя",
-                isError = false,
+                isError = firstNameError != null,
                 errorText = "Введено некорректное значение"
             )
 
             PrimaryTextField(
-                value = surname,
-                onValueChange = {
-                    surname = it
-                    Timber.d("textForField", surname)
-                },
+                value = lastName,
+                onValueChange = viewModel::onLastNameChanged,
                 labelText = "Фамилия",
-                isError = false,
+                isError = lastNameError != null,
                 errorText = "Введено некорректное значение"
             )
 
             PasswordTextField(
                 value = password,
                 labelText = "Пароль",
-                onTextChange = {
-                    password = it
-                },
-                isError = isError,
+                onTextChange = viewModel::onPasswordChanged,
+                isError = passwordError != null,
                 errorText = "Пароль должен состоять не менее чем из 8 символов"
             )
 
             PrimaryButton(
                 text = "Зарегистрироваться",
                 isLoading = false,
-                onButtonClick = onRegisterClick
+                onButtonClick = viewModel::submit
             )
 
             Text(
@@ -129,15 +135,15 @@ fun RegistrationScreen(
     }
 }
 
-@Composable
-@Preview
-fun RegistrationScreenPreview() {
-    RegistrationScreen(
-        onLoginClick = {
-            // Do nothing
-        },
-        onRegisterClick = {
-            // Do nothing
-        }
-    )
-}
+//@Composable
+//@Preview
+//fun RegistrationScreenPreview() {
+//    RegistrationScreen(
+//        onLoginClick = {
+//            // Do nothing
+//        },
+//        onRegisterClick = {
+//            // Do nothing
+//        }
+//    )
+//}

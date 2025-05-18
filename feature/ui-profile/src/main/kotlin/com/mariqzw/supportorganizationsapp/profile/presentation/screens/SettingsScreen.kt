@@ -37,17 +37,20 @@ fun SettingsScreen(
     onSliderValueChange: (Float) -> Unit,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    onNavigateBack: () -> Unit
+    onLogoutClick: () -> Unit
 ) {
     val dimensions = LocalDimensions.current
 
     Surface(
         color = backgroundLight
-    ){
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = dimensions.horizontalMedium, vertical = dimensions.verticalLarge),
+                .padding(
+                    horizontal = dimensions.horizontalMedium,
+                    vertical = dimensions.verticalLarge
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement
                 .spacedBy(dimensions.verticalLarge)
@@ -98,7 +101,7 @@ fun SettingsScreen(
             Text(
                 text = "Выйти из аккаунта",
                 style = RegularRoboto14,
-                modifier = Modifier.clickable {}
+                modifier = Modifier.clickable { onLogoutClick() }
             )
         }
     }
@@ -112,6 +115,6 @@ fun SettingsScreenPreview() {
         onCheckedChange = {},
         checked = true,
         onSliderValueChange = {},
-        onNavigateBack = {}
+        onLogoutClick = {}
     )
 }
