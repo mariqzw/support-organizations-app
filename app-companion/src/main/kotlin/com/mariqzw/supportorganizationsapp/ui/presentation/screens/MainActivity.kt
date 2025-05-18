@@ -24,9 +24,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationComponionDetailsScreen
+import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationsCompanionListScreen
 import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationsListScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.AuthorizationScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.RegistrationScreen
+import com.mariqzw.supportorganizationsapp.auth.presentation.screens.SignUpScreen
+import com.mariqzw.supportorganizationsapp.auth.presentation.screens.SplashScreen
 import com.mariqzw.supportorganizationsapp.chats.presentation.screens.ChatsListScreen
 import com.mariqzw.supportorganizationsapp.domain.navigation.Route
 import com.mariqzw.supportorganizationsapp.mapmetro.presentation.screens.MapScreen
@@ -99,30 +103,39 @@ class MainActivity : ComponentActivity() {
                         Box(modifier = Modifier.padding(innerPadding)) {
                             NavHost(
                                 navController = navController,
-                                startDestination = Route.AuthorizationScreen
+                                startDestination = Route.SplashScreen
                             ) {
+                                composable<Route.SplashScreen> {
+                                    SplashScreen(
+                                        navController = navController
+                                    )
+                                }
                                 composable<Route.AuthorizationScreen> {
                                     AuthorizationScreen(
-                                        onLoginClick = { navController.navigate(Route.MapScreen) },
+                                        navController = navController,
                                         onRegisterClick = { navController.navigate(Route.RegistrationScreen) }
                                     )
                                 }
-                                composable<Route.RegistrationScreen> {
-                                    RegistrationScreen(
+                                composable<Route.SignUpScreen> {
+                                    SignUpScreen(
                                         onLoginClick = {
                                             navController.navigate(Route.AuthorizationScreen)
                                         },
-                                        onRegisterClick = {
-                                            navController.navigate(Route.MapScreen)
-                                        }
+                                        navController = navController
                                     )
                                 }
                                 composable<Route.MapScreen> {
                                     MapScreen()
                                 }
-                                composable<Route.ApplicationsListScreen> {
-                                    ApplicationsListScreen(
+                                composable<Route.ApplicationsCompanionListScreen> {
+                                    ApplicationsCompanionListScreen(
                                         navController
+                                    )
+                                }
+                                composable<Route.ApplicationCompanionDetailsScreen> { backStackEntry ->
+                                    ApplicationComponionDetailsScreen(
+                                        navController     = navController,
+                                        navBackStackEntry = backStackEntry     // экран уже забирает аргументы сам
                                     )
                                 }
                                 composable<Route.ChatsListScreen> {
@@ -145,8 +158,12 @@ class MainActivity : ComponentActivity() {
                                         onCheckedChange = { newChecked ->
                                             isChecked.value = newChecked
                                         },
-                                        onNavigateBack = {
-                                            navController.popBackStack()
+                                        onLogoutClick = {
+                                            viewModel.logout(
+                                                onComplete = {
+                                                    navController.navigate(Route.AuthorizationScreen)
+                                                }
+                                            )
                                         }
                                     )
                                 }

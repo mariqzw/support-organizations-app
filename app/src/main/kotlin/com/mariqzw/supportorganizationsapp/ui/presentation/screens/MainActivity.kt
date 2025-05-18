@@ -28,6 +28,7 @@ import com.mariqzw.supportorganizationsapp.addapplications.presentation.screens.
 import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationsListScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.AuthorizationScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.RegistrationScreen
+import com.mariqzw.supportorganizationsapp.auth.presentation.screens.SplashScreen
 import com.mariqzw.supportorganizationsapp.chats.presentation.screens.ChatsListScreen
 import com.mariqzw.supportorganizationsapp.domain.navigation.Route
 import com.mariqzw.supportorganizationsapp.mapmetro.presentation.screens.MapScreen
@@ -73,7 +74,8 @@ class MainActivity : ComponentActivity() {
                         when (scaffoldState.appBarState) {
                             is UiScaffoldState.AppBarState.None -> Unit
                             is UiScaffoldState.AppBarState.Toolbar -> {
-                                val toolbar = scaffoldState.appBarState as UiScaffoldState.AppBarState.Toolbar
+                                val toolbar =
+                                    scaffoldState.appBarState as UiScaffoldState.AppBarState.Toolbar
                                 TopBar(
                                     modifier = Modifier.statusBarsPadding(),
                                     title = toolbar.screenName,
@@ -100,11 +102,16 @@ class MainActivity : ComponentActivity() {
                         Box(modifier = Modifier.padding(innerPadding)) {
                             NavHost(
                                 navController = navController,
-                                startDestination = Route.AuthorizationScreen
+                                startDestination = Route.SplashScreen
                             ) {
+                                composable<Route.SplashScreen> {
+                                    SplashScreen(
+                                        navController = navController
+                                    )
+                                }
                                 composable<Route.AuthorizationScreen> {
                                     AuthorizationScreen(
-                                        onLoginClick = { navController.navigate(Route.MapScreen) },
+                                        navController = navController,
                                         onRegisterClick = { navController.navigate(Route.RegistrationScreen) }
                                     )
                                 }
@@ -113,9 +120,7 @@ class MainActivity : ComponentActivity() {
                                         onLoginClick = {
                                             navController.navigate(Route.AuthorizationScreen)
                                         },
-                                        onRegisterClick = {
-                                            navController.navigate(Route.MapScreen)
-                                        }
+                                        navController = navController
                                     )
                                 }
                                 composable<Route.MapScreen> {
@@ -151,8 +156,12 @@ class MainActivity : ComponentActivity() {
                                         onCheckedChange = { newChecked ->
                                             isChecked.value = newChecked
                                         },
-                                        onNavigateBack = {
-                                            navController.popBackStack()
+                                        onLogoutClick = {
+                                            viewModel.logout(
+                                                onComplete = {
+                                                    navController.navigate(Route.AuthorizationScreen)
+                                                }
+                                            )
                                         }
                                     )
                                 }

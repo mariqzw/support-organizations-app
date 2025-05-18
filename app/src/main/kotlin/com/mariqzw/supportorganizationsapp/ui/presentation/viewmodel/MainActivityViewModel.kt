@@ -2,18 +2,30 @@ package com.mariqzw.supportorganizationsapp.ui.presentation.viewmodel
 
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mariqzw.supportorganizationsapp.data.auth.AuthenticationDataStore
 import com.mariqzw.supportorganizationsapp.ui.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class MainActivityViewModel : ViewModel() {
+class MainActivityViewModel(
+    private val authDataStore: AuthenticationDataStore,
+) : ViewModel() {
 
     private val _scaffoldState = MutableStateFlow(UiScaffoldState())
     val scaffoldState: StateFlow<UiScaffoldState> = _scaffoldState.asStateFlow()
 
     fun updateForRoute(currentRoute: String?) {
         _scaffoldState.value = _scaffoldState.value.onRouteChanged(currentRoute)
+    }
+
+    fun logout(onComplete: () -> Unit) {
+        viewModelScope.launch {
+            authDataStore.clear()
+            onComplete()
+        }
     }
 }
 
