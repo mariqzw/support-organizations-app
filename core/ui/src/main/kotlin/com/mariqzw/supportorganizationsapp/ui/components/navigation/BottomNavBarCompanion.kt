@@ -60,7 +60,7 @@ fun BottomNavBarCompanion(
             navItems.forEachIndexed { index, item ->
                 val route = when (index) {
                     0 -> "com.mariqzw.supportorganizationsapp.domain.navigation.Route.MapScreen"
-                    1 -> "com.mariqzw.supportorganizationsapp.domain.navigation.Route.ApplicationsListScreen"
+                    1 -> "com.mariqzw.supportorganizationsapp.domain.navigation.Route.ApplicationsCompanionListScreen"
                     2 -> "com.mariqzw.supportorganizationsapp.domain.navigation.Route.ChatsListScreen"
                     3 -> "com.mariqzw.supportorganizationsapp.domain.navigation.Route.ProfileScreen"
                     else -> ""
