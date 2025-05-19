@@ -144,7 +144,10 @@ val provideNetworkModule = module {
     }
 
     single<UpdateUserUseCase> {
-        UpdateUserUseCaseImpl(userService = get())
+        UpdateUserUseCaseImpl(
+            userService = get(),
+            tokenSupport = get()
+        )
     }
 
     single<CreateApplicationsUseCase> {
@@ -164,7 +167,10 @@ val provideNetworkModule = module {
     }
 
     single<GetUserProfileUseCase> {
-        GetUserProfileUseCaseImpl(userService = get())
+        GetUserProfileUseCaseImpl(
+            userService = get(),
+            tokenSupport = get()
+        )
     }
 
     single<GetApplicationByIdUseCase> {

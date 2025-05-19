@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,38 +22,39 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.mariqzw.supportorganizationsapp.profile.R
+import com.mariqzw.supportorganizationsapp.profile.presentation.viewmodels.ProfileScreenViewModel
 import com.mariqzw.supportorganizationsapp.ui.components.buttons.PrimaryButton
-import com.mariqzw.supportorganizationsapp.ui.components.fields.PasswordTextField
 import com.mariqzw.supportorganizationsapp.ui.components.fields.PrimaryTextField
 import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
 import com.mariqzw.supportorganizationsapp.ui.theme.RegularRoboto14
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
-import timber.log.Timber
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ProfileScreen(
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    viewModel: ProfileScreenViewModel = koinViewModel(),
 ) {
     val dimensions = LocalDimensions.current
 
-    val name = remember { mutableStateOf("Иван") }
-    val surname = remember { mutableStateOf("Иванов") }
-    val phoneNumber = remember { mutableStateOf("+79001002020") }
-    val email = remember { mutableStateOf("user@example.com") }
-    val password = remember { mutableStateOf("Password11") }
+    val name = viewModel.name.collectAsState()
+    val surname = viewModel.surname.collectAsState()
+    val phoneNumber = viewModel.phoneNumber.collectAsState()
+    val email = viewModel.email.collectAsState()
 
-    val isError = password.value.length < 6 && password.value.isNotEmpty()
+    val alertMessage = viewModel.alertMessage.collectAsState()
 
-    Surface(
-        color = backgroundLight
-    ) {
+    LaunchedEffect(Unit) {
+        viewModel.loadUserData()
+    }
+
+    Surface(color = backgroundLight) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = dimensions.horizontalMedium),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement
-                .spacedBy(dimensions.verticalSmall, Alignment.CenterVertically)
+            verticalArrangement = Arrangement.spacedBy(dimensions.verticalSmall, Alignment.CenterVertically)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.pc_profile_photo),
@@ -65,10 +68,7 @@ fun ProfileScreen(
 
             PrimaryTextField(
                 value = name.value,
-                onValueChange = {
-                    name.value = it
-                    Timber.d("textForField", name)
-                },
+                onValueChange = viewModel::onNameChanged,
                 labelText = "Имя",
                 trailingIconResId = R.drawable.ic_outline_create,
                 errorText = "Введено некорректное значение или символы"
@@ -76,10 +76,7 @@ fun ProfileScreen(
 
             PrimaryTextField(
                 value = surname.value,
-                onValueChange = {
-                    surname.value = it
-                    Timber.d("textForField", surname)
-                },
+                onValueChange = viewModel::onSurnameChanged,
                 labelText = "Фамилия",
                 trailingIconResId = R.drawable.ic_outline_create,
                 errorText = "Введено некорректное значение или символы"
@@ -87,10 +84,7 @@ fun ProfileScreen(
 
             PrimaryTextField(
                 value = phoneNumber.value,
-                onValueChange = {
-                    phoneNumber.value = it
-                    Timber.d("textForField", phoneNumber)
-                },
+                onValueChange = viewModel::onPhoneNumberChanged,
                 labelText = "Номер телефона",
                 trailingIconResId = R.drawable.ic_outline_create,
                 errorText = "Введено некорректное значение или символы"
@@ -98,30 +92,16 @@ fun ProfileScreen(
 
             PrimaryTextField(
                 value = email.value,
-                onValueChange = {
-                    email.value = it
-                    Timber.d("textForField", email)
-                },
+                onValueChange = viewModel::onEmailChanged,
                 labelText = "Электронная почта",
                 trailingIconResId = R.drawable.ic_outline_create,
                 errorText = "Введено некорректное значение или символы"
             )
 
-            PasswordTextField(
-                value = password.value,
-                onTextChange = {
-                    password.value = it
-                    Timber.d("textForField", password)
-                },
-                labelText = "Пароль",
-                errorText = "Пароль должен содержать минимум 8 символов",
-                isError = isError
-            )
-
             PrimaryButton(
                 text = "Сохранить",
                 onButtonClick = {
-                    // Do nothing
+                    viewModel.updateUser()
                 }
             )
 
@@ -131,8 +111,21 @@ fun ProfileScreen(
                 modifier = Modifier.clickable { onSettingsClick() }
             )
         }
-    }
 
+        alertMessage.value?.let { message ->
+            AlertDialog(
+                onDismissRequest = { viewModel.dismissAlert() },
+                confirmButton = {
+                    TextButton(onClick = { viewModel.dismissAlert() }) {
+                        Text("ОК")
+                    }
+                },
+                text = {
+                    Text(text = message)
+                }
+            )
+        }
+    }
 }
 
 @Composable

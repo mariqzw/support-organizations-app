@@ -62,10 +62,14 @@ class KtorAuthService(
                     protocol = URLProtocol.HTTP
                     host = apiHost
                     port = 8080
-                    path("auth", "signup", "passanger")
+                    path("auth", "signup", "passenger")
                     contentType(ContentType.Application.Json)
                 }
                 setBody(model)
+            }
+        }.also { response ->
+            response.onSuccess { authNetworkResponse ->
+                authenticationDataStore.updateUser(authNetworkResponse.asUserAuthDataStore())
             }
         }
     }
@@ -81,6 +85,10 @@ class KtorAuthService(
                     contentType(ContentType.Application.Json)
                 }
                 setBody(model)
+            }
+        }.also { response ->
+            response.onSuccess { authNetworkResponse ->
+                authenticationDataStore.updateUser(authNetworkResponse.asUserAuthDataStore())
             }
         }
     }

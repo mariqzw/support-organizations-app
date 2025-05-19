@@ -10,6 +10,7 @@ import com.mariqzw.supportorganizationsapp.di.provideNavigationModule
 import com.mariqzw.supportorganizationsapp.di.provideViewModelModule
 import com.mariqzw.supportorganizationsapp.network.di.provideNetworkEndpointsModule
 import com.mariqzw.supportorganizationsapp.network.di.provideNetworkModule
+import com.mariqzw.supportorganizationsapp.profile.di.provideProfileModule
 import com.mariqzw.supportorganizationsapp.reporting.ConsoleLoggingTree
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -44,6 +45,9 @@ class SupportOrganizationsAppCompanion : Application() {
 
             // feature:ui-applications modules
             modules(provideApplicationsModule)
+
+            // feature:ui-profile modules
+            modules(provideProfileModule)
         }
     }
 }
