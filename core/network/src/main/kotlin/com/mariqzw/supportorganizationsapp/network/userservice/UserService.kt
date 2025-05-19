@@ -3,9 +3,11 @@ package com.mariqzw.supportorganizationsapp.network.userservice
 import com.mariqzw.supportorganizationsapp.model.request.UpdateUserRequest
 import com.mariqzw.supportorganizationsapp.model.request.application.CreateApplicationRequest
 import com.mariqzw.supportorganizationsapp.model.response.ApplicationResponse
+import com.mariqzw.supportorganizationsapp.model.response.UpdateUserResponse
 import com.mariqzw.supportorganizationsapp.model.response.UserResponse
 import com.mariqzw.supportorganizationsapp.network.extensions.request
 import io.ktor.client.HttpClient
+import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -20,7 +22,7 @@ import kotlinx.coroutines.withContext
 
 interface UserService {
 
-    suspend fun updateUser(token: String, model: UpdateUserRequest): Result<UserResponse>
+    suspend fun updateUser(token: String, model: UpdateUserRequest): Result<UpdateUserResponse>
 
     suspend fun createApplications(model: CreateApplicationRequest): Result<ApplicationResponse>
 
@@ -40,7 +42,7 @@ class KtorUserService(
     private val dispatcher: CoroutineDispatcher
 ) : UserService {
     override suspend fun updateUser(token: String, model: UpdateUserRequest) = withContext(dispatcher) {
-        client.request<UserResponse> {
+        client.request<UpdateUserResponse> {
             put {
                 url {
                     protocol = URLProtocol.HTTP
@@ -49,7 +51,7 @@ class KtorUserService(
                     path("api", "users", "update")
                     contentType(ContentType.Application.Json)
                 }
-                header("Authorization", "Bearer $token")
+                bearerAuth(token)
                 setBody(model)
             }
         }
