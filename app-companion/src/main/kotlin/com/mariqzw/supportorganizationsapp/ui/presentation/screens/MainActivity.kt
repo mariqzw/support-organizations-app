@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity() {
                                 composable<Route.AuthorizationScreen> {
                                     AuthorizationScreen(
                                         navController = navController,
-                                        onRegisterClick = { navController.navigate(Route.RegistrationScreen) }
+                                        onRegisterClick = { navController.navigate(Route.SignUpScreen) }
                                     )
                                 }
                                 composable<Route.SignUpScreen> {

@@ -109,7 +109,7 @@ fun ApplicationsCompanionListScreen(
 
                             }
 
-                        }, "Мои заявка" to {
+                        }, "Мои заявки" to {
                             LazyColumn(
                                 modifier = Modifier
                                     .fillMaxWidth()

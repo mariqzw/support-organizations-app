@@ -126,7 +126,7 @@ fun TabRowPagerPreview() {
                 tabs = listOf(
                     "Свободные заявки" to {
                         Text("test")
-                    },"Мои заявка" to {
+                    },"Мои заявки" to {
                         Text("test")
                     }
                 ),
