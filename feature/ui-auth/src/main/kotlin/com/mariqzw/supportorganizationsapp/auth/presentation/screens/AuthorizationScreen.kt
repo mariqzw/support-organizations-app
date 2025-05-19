@@ -83,7 +83,7 @@ fun AuthorizationScreen(
                 onValueChange = { newEmail ->
                     viewModel.changeEmail(newEmail)
                 },
-                labelText = "Телефон/электронная почта",
+                labelText = "Электронная почта",
                 isError = false,
                 errorText = "Введено некорректное значение"
             )
