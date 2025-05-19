@@ -1,1 +1,0 @@
-package com.mariqzw.supportorganizationsapp.domain
