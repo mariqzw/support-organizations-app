@@ -29,14 +29,11 @@ interface ApplicationService {
 
     suspend fun getAllApplications(token: String) : Result<List<ApplicationResponse>>
 
-    /**
-     * Получает все заявки, компаньона в качестве сопровождающего
-     */
     suspend fun getAllByCompanion(token: String) : Result<List<ApplicationResponse>>
 
     suspend fun getAllNewWithoutCompanion(token: String) : Result<List<ApplicationResponse>>
 
-    suspend fun createApplication(model: CreateApplicationRequest) : Result<ApplicationResponse>
+    suspend fun createApplication(token: String, model: CreateApplicationRequest) : Result<ApplicationResponse>
 
     suspend fun startApplication(applicationId: Long) : Result<ApplicationResponse>
 
@@ -44,7 +41,7 @@ interface ApplicationService {
 
     suspend fun completeApplication(applicationId: Long) : Result<ApplicationResponse>
 
-    suspend fun cancelApplication(applicationId: Long) : Result<ApplicationResponse>
+    suspend fun cancelApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
     suspend fun acceptApplication(applicationId: Long, companionId: Long) : Result<ApplicationResponse>
 
@@ -137,7 +134,7 @@ class KtorApplicationService(
         }
     }
 
-    override suspend fun createApplication(model: CreateApplicationRequest) = withContext(dispatcher) {
+    override suspend fun createApplication(token: String, model: CreateApplicationRequest) = withContext(dispatcher) {
         client.request<ApplicationResponse> {
             post {
                 url {
@@ -147,6 +144,7 @@ class KtorApplicationService(
                     path("applications")
                     contentType(ContentType.Application.Json)
                 }
+                bearerAuth(token = token)
                 setBody(model)
             }
         }
@@ -191,7 +189,7 @@ class KtorApplicationService(
         }
     }
 
-    override suspend fun cancelApplication(applicationId: Long) = withContext(dispatcher) {
+    override suspend fun cancelApplication(token: String, applicationId: Long) = withContext(dispatcher) {
         client.request<ApplicationResponse> {
             post {
                 url {
@@ -200,6 +198,7 @@ class KtorApplicationService(
                     port = 8080
                     path("applications", applicationId.toString(), "cancel")
                 }
+                bearerAuth(token = token)
             }
         }
     }
