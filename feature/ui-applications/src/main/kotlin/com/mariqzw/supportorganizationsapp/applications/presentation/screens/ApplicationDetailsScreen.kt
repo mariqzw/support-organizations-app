@@ -22,7 +22,6 @@ import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
 
 @Composable
 fun ApplicationDetailsScreen(
-    navController: NavController?,
     navBackStackEntry: NavBackStackEntry?
 ) {
     val dimensions = LocalDimensions.current
@@ -95,7 +94,6 @@ fun ApplicationDetailsScreen(
 @Preview
 fun ApplicationDetailsScreenPreview() {
     ApplicationDetailsScreen(
-        navController = null,
         navBackStackEntry = null
     )
 }

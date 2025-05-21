@@ -45,5 +45,15 @@ sealed interface Route {
     ) : Route
 
     @Serializable
+    data class ApplicationDetailsScreen(
+        val date: String,
+        val time: String,
+        val startPoint: String,
+        val endPoint: String,
+        val status: String,
+        val comment: String = ""
+    ) : Route
+
+    @Serializable
     data object SplashScreen: Route
 }

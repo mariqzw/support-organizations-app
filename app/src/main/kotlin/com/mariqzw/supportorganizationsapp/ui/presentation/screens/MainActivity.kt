@@ -25,6 +25,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mariqzw.supportorganizationsapp.addapplications.presentation.screens.AddApplicationScreen
+import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationDetailsScreen
 import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationsListScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.AuthorizationScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.RegistrationScreen
@@ -131,10 +132,13 @@ class MainActivity : ComponentActivity() {
                                         navController
                                     )
                                 }
-                                composable<Route.AddApplicationsScreen> {
-                                    AddApplicationScreen(
-                                        onSendClick = {}
+                                composable<Route.ApplicationDetailsScreen> {
+                                    ApplicationDetailsScreen(
+                                        navBackStackEntry = navBackStackEntry
                                     )
+                                }
+                                composable<Route.AddApplicationsScreen> {
+                                    AddApplicationScreen()
                                 }
                                 composable<Route.ChatsListScreen> {
                                     ChatsListScreen()

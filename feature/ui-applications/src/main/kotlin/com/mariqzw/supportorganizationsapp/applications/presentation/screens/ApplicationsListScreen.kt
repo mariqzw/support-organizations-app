@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationsListState
 import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationsListViewModel
+import com.mariqzw.supportorganizationsapp.domain.navigation.Route
 import com.mariqzw.supportorganizationsapp.ui.components.cards.PrimaryCard
 import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
@@ -76,13 +77,24 @@ fun ApplicationsListScreen(
                     items(applications.size) { index ->
                         val app = applications[index]
                         PrimaryCard(
-                            modifier = Modifier.clickable {
-                                navController.navigate("applicationDetails/${app.id}")
-                            },
                             date = app.date,
                             status = app.status,
                             startPoint = app.departureStation,
-                            endPoint = app.destinationStation
+                            endPoint = app.destinationStation,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    navController.navigate(
+                                        Route.ApplicationDetailsScreen(
+                                            date = app.date,
+                                            time = app.time,
+                                            startPoint = app.departureStation,
+                                            endPoint = app.destinationStation,
+                                            status = app.status,
+                                            comment = app.comment ?: ""
+                                        )
+                                    )
+                                }
                         )
                     }
                 }

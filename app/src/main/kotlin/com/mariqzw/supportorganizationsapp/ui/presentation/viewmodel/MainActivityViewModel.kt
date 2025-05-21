@@ -50,17 +50,16 @@ data class UiScaffoldState(
     fun onRouteChanged(currentRoute: String?): UiScaffoldState {
         if (currentRoute == null) return this
 
-        val isAuthRoute = currentRoute.isAuthRoute()
+        val showBottomNavBar = currentRoute.showBottomNavBar()
         val appBarState = calculateAppBarState(currentRoute)
 
         return copy(
             appBarState = appBarState,
-            showBottomBar = !isAuthRoute
+            showBottomBar = showBottomNavBar
         )
     }
 
     private fun calculateAppBarState(route: String): AppBarState {
-        if (route.isAuthRoute()) return AppBarState.None
 
         return when (route.routeSuffix()) {
             "Map" -> AppBarState.Toolbar(
@@ -82,7 +81,7 @@ data class UiScaffoldState(
             "AddApplications" -> AppBarState.Toolbar(
                 screenName = "Добавить заявку",
                 isMainScreen = false,
-                canNavigateBack = true,
+                canNavigateBack = false,
                 iconLeft = null,
                 iconRight = null
             )
@@ -111,12 +110,25 @@ data class UiScaffoldState(
                 iconRight = null
             )
 
+            "ApplicationDetails" -> AppBarState.Toolbar(
+                screenName = "Информация о заявке",
+                isMainScreen = true,
+                canNavigateBack = true,
+                iconLeft = R.drawable.arrow_back,
+                iconRight = null
+            )
+
             else -> AppBarState.None
         }
     }
 }
 
-private fun String.routeSuffix(): String = substringAfterLast('.').removeSuffix("Screen")
+private fun String.routeSuffix(): String {
+    return this
+        .substringAfterLast('.')
+        .substringBefore('/')
+        .removeSuffix("Screen")
+}
 
-private fun String.isAuthRoute(): Boolean =
-    routeSuffix() in setOf("Splash", "Authorization", "Registration")
+private fun String.showBottomNavBar(): Boolean =
+    routeSuffix() in setOf("Map", "ApplicationsList", "AddApplications", "ChatsList", "Profile")
