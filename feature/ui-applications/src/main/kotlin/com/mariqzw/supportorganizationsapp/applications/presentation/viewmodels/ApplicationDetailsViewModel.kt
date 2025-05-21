@@ -51,7 +51,7 @@ class ApplicationDetailsViewModel(
                         }
                 }
 
-                "Принята" -> {
+                "Назначена" -> {
                     cancelApplicationUseCase(applicationId)
                         .onSuccess {
                             reducer.sendIntent(ApplicationDetailsIntent.CancelSuccess)

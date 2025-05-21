@@ -82,7 +82,7 @@ fun ApplicationDetailsScreen(
                 ) {
                     Text("Удалить")
                 }
-            } else if (status == "Принята") {
+            } else if (status == "Назначена") {
                 Button(onClick = {
                     if (id != null) {
                         viewModel.onActionClick(id, status)
