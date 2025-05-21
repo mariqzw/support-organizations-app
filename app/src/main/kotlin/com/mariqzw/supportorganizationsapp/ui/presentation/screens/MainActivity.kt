@@ -134,6 +134,7 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable<Route.ApplicationDetailsScreen> {
                                     ApplicationDetailsScreen(
+                                        navController = navController,
                                         navBackStackEntry = navBackStackEntry
                                     )
                                 }

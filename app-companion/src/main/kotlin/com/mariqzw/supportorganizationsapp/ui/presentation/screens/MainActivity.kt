@@ -24,11 +24,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationComponionDetailsScreen
+import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationCompanionDetailsScreen
 import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationsCompanionListScreen
-import com.mariqzw.supportorganizationsapp.applications.presentation.screens.ApplicationsListScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.AuthorizationScreen
-import com.mariqzw.supportorganizationsapp.auth.presentation.screens.RegistrationScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.SignUpScreen
 import com.mariqzw.supportorganizationsapp.auth.presentation.screens.SplashScreen
 import com.mariqzw.supportorganizationsapp.chats.presentation.screens.ChatsListScreen
@@ -133,9 +131,8 @@ class MainActivity : ComponentActivity() {
                                     )
                                 }
                                 composable<Route.ApplicationCompanionDetailsScreen> { backStackEntry ->
-                                    ApplicationComponionDetailsScreen(
-                                        navController     = navController,
-                                        navBackStackEntry = backStackEntry     // экран уже забирает аргументы сам
+                                    ApplicationCompanionDetailsScreen(
+                                        navBackStackEntry = backStackEntry
                                     )
                                 }
                                 composable<Route.ChatsListScreen> {
