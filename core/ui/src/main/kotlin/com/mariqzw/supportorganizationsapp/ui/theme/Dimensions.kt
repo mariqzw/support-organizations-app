@@ -52,6 +52,7 @@ data class Dimensions(
     val circularStrokeWith: Dp = 3.dp,
     val roundedShape: Dp = 12.dp,
     val verticalHorizontalPadding: Dp = 12.dp,
+    val applicationsIconSize: Dp = 20.dp,
     val iconSize: Dp = 32.dp,
     val screenPadding: Dp = 32.dp,
     val messageAvatar: Dp = 48.dp,

@@ -106,17 +106,17 @@ val provideNetworkModule = module {
 
     single<UserService> {
         KtorUserService(
-            client     = get(),
-            apiHost    = get(named("API")),
+            client = get(),
+            apiHost = get(named("API")),
             dispatcher = get(named(SaDispatchers.IO.name))
         )
     }
 
     single<ApplicationService> {
         KtorApplicationService(
-            client    = get(),
-            apiHost   = get(named("API")),
-            dispatcher= get(named(SaDispatchers.IO.name))
+            client = get(),
+            apiHost = get(named("API")),
+            dispatcher = get(named(SaDispatchers.IO.name))
         )
     }
 
@@ -182,7 +182,9 @@ val provideNetworkModule = module {
     }
 
     single<DeleteApplicationUseCase> {
-        DeleteApplicationUseCaseImpl(applicationService = get())
+        DeleteApplicationUseCaseImpl(
+            applicationService = get(),
+            tokenSupport = get())
     }
 
     single<GetAllApplicationsUseCase> {

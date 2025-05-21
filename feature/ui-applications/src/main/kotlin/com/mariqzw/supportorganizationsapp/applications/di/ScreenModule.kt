@@ -1,5 +1,6 @@
 package com.mariqzw.supportorganizationsapp.applications.di
 
+import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationDetailsViewModel
 import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationsCompanionListViewModel
 import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationsListViewModel
 import org.koin.core.module.dsl.viewModel
@@ -16,6 +17,13 @@ val provideApplicationsModule = module {
         ApplicationsCompanionListViewModel(
             getAllApplicationsByCompanionUseCase = get(),
             getAllNewWithoutCompanionUseCaseImpl = get()
+        )
+    }
+
+    viewModel {
+        ApplicationDetailsViewModel(
+            deleteApplicationUseCase = get(),
+            cancelApplicationUseCase = get()
         )
     }
 }

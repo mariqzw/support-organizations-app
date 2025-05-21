@@ -13,6 +13,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,6 +37,12 @@ fun ApplicationsListScreen(
     val dimensions = LocalDimensions.current
     val applications by viewModel.applications.collectAsState()
     val state by viewModel.state.collectAsState(initial = ApplicationsListState.Init)
+
+    LaunchedEffect(Unit) {
+        navController.currentBackStackEntryFlow.collect {
+            viewModel.refresh()
+        }
+    }
 
     Surface(color = backgroundLight) {
         when (state) {
@@ -86,12 +93,13 @@ fun ApplicationsListScreen(
                                 .clickable {
                                     navController.navigate(
                                         Route.ApplicationDetailsScreen(
+                                            id = app.id,
                                             date = app.date,
                                             time = app.time,
                                             startPoint = app.departureStation,
                                             endPoint = app.destinationStation,
                                             status = app.status,
-                                            comment = app.comment ?: ""
+                                            comment = app.comment
                                         )
                                     )
                                 }
@@ -102,106 +110,6 @@ fun ApplicationsListScreen(
         }
     }
 }
-
-
-//            item {
-//                PrimaryCard(
-//                    date = "29.04.2025",
-//                    status = "Принята",
-//                    startPoint = "Домодедовская",
-//                    endPoint = "Саларьево",
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "02.03.2025",
-//                    status = "Закрыта",
-//                    startPoint = "Алтуфьево",
-//                    endPoint = "Электрозаводская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "17.12.2024",
-//                    status = "Закрыта",
-//                    startPoint = "Маяковская",
-//                    endPoint = "Электрозаводская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "17.11.2024",
-//                    status = "Закрыта",
-//                    startPoint = "Чистые пруды",
-//                    endPoint = "Алексеевская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "29.10.2024",
-//                    status = "Закрыта",
-//                    startPoint = "Алтуфьево",
-//                    endPoint = "Фонвизинская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "24.10.2024",
-//                    status = "Закрыта",
-//                    startPoint = "Новые Черемушки",
-//                    endPoint = "Электрозаводская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "02.11.2023",
-//                    status = "Закрыта",
-//                    startPoint = "Лефортово",
-//                    endPoint = "Электрозаводская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "19.06.2023",
-//                    status = "Закрыта",
-//                    startPoint = "Зюзино",
-//                    endPoint = "Севастопольская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "01.06.2023",
-//                    status = "Закрыта",
-//                    startPoint = "Красногвардейская",
-//                    endPoint = "Электрозаводская"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "13.06.2023",
-//                    status = "Закрыта",
-//                    startPoint = "Саларьево",
-//                    endPoint = "Сокольники"
-//                )
-//            }
-//
-//            item {
-//                PrimaryCard(
-//                    date = "12.02.2023",
-//                    status = "Закрыта",
-//                    startPoint = "Бибирево",
-//                    endPoint = "ВДНХ"
-//                )
-//            }
 
 @Composable
 @Preview

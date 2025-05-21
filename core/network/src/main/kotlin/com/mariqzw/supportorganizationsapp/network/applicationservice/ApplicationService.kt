@@ -5,6 +5,8 @@ import com.mariqzw.supportorganizationsapp.model.request.application.UpdateAppli
 import com.mariqzw.supportorganizationsapp.model.response.ApplicationResponse
 import com.mariqzw.supportorganizationsapp.network.extensions.request
 import io.ktor.client.HttpClient
+import io.ktor.client.call.NoTransformationFoundException
+import io.ktor.client.call.body
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
@@ -12,7 +14,9 @@ import io.ktor.client.request.parameter
 import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.path
@@ -25,7 +29,7 @@ interface ApplicationService {
 
     suspend fun updateApplication(applicationId: Long, model: UpdateApplicationRequest) : Result<ApplicationResponse>
 
-    suspend fun deleteApplication(applicationId: Long)
+    suspend fun deleteApplication(token: String, applicationId: Long) : Boolean
 
     suspend fun getAllApplications(token: String) : Result<List<ApplicationResponse>>
 
@@ -81,14 +85,21 @@ class KtorApplicationService(
         }
     }
 
-    override suspend fun deleteApplication(applicationId: Long) {
-        client.delete {
+    override suspend fun deleteApplication(token: String, applicationId: Long) = withContext(dispatcher) {
+        val response: HttpResponse = client.delete {
             url {
                 protocol = URLProtocol.HTTP
                 host = apiHost
                 port = 8080
                 path("applications", applicationId.toString())
             }
+            bearerAuth(token = token)
+        }
+        try {
+            response.body<Boolean>()
+        } catch (e: NoTransformationFoundException) {
+            if (response.status == HttpStatusCode.NoContent) true
+            else throw e
         }
     }
 
