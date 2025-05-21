@@ -31,11 +31,9 @@ class ApplicationsCompanionListViewModel(
     val applicationsFree: StateFlow<List<ApplicationResponse>> = _applicationsFree.asStateFlow()
 
     init {
-        // сразу загружаем данные
         refresh()
     }
 
-    /** триггер для перезагрузки списка */
     fun refresh() = viewModelScope.launch {
         reducer.sendIntent(ApplicationsCompanionListIntent.Load)
 

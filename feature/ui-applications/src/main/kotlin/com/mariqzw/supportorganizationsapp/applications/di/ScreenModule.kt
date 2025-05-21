@@ -1,5 +1,6 @@
 package com.mariqzw.supportorganizationsapp.applications.di
 
+import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationDetailsCompanionViewModel
 import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationDetailsViewModel
 import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationsCompanionListViewModel
 import com.mariqzw.supportorganizationsapp.applications.presentation.viewmodels.ApplicationsListViewModel
@@ -24,6 +25,14 @@ val provideApplicationsModule = module {
         ApplicationDetailsViewModel(
             deleteApplicationUseCase = get(),
             cancelApplicationUseCase = get()
+        )
+    }
+
+    viewModel {
+        ApplicationDetailsCompanionViewModel(
+            completeApplicationUseCase = get(),
+            rejectApplicationUseCase = get(),
+            assigneeApplicationUseCase = get()
         )
     }
 }

@@ -132,6 +132,7 @@ class MainActivity : ComponentActivity() {
                                 }
                                 composable<Route.ApplicationCompanionDetailsScreen> { backStackEntry ->
                                     ApplicationCompanionDetailsScreen(
+                                        navController = navController,
                                         navBackStackEntry = backStackEntry
                                     )
                                 }

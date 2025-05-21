@@ -36,6 +36,7 @@ sealed interface Route {
 
     @Serializable
     data class ApplicationCompanionDetailsScreen(
+        val id: Long,
         val date: String,
         val time: String,
         val startPoint: String,
