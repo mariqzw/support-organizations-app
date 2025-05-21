@@ -19,7 +19,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.mariqzw.supportorganizationsapp.applications.R
@@ -38,7 +37,6 @@ fun ApplicationDetailsScreen(
 ) {
     val dimensions = LocalDimensions.current
 
-    val state by viewModel.state.collectAsState()
     val alertMessage by viewModel.alertMessage.collectAsState()
     val navigateBack by viewModel.navigateBack.collectAsState()
 
