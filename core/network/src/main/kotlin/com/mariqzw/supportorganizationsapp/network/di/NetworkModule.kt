@@ -6,6 +6,7 @@ import com.mariqzw.supportorganizationsapp.network.authservice.usecase.RefreshTo
 import com.mariqzw.supportorganizationsapp.network.authservice.usecase.RegisterUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.authservice.usecase.SignInUseCaseImpl
 import com.mariqzw.supportorganizationsapp.common.di.SaDispatchers
+import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.AssigneeApplicationUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.CancelApplicationUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.CompleteApplicationUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.CreateApplicationUseCase
@@ -29,6 +30,7 @@ import com.mariqzw.supportorganizationsapp.domain.usecase.userservice.GetListOfA
 import com.mariqzw.supportorganizationsapp.domain.usecase.userservice.GetUserProfileUseCase
 import com.mariqzw.supportorganizationsapp.network.applicationservice.ApplicationService
 import com.mariqzw.supportorganizationsapp.network.applicationservice.KtorApplicationService
+import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.AssigneeApplicationUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.CompleteApplicationUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.DeleteApplicationUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.GetAllApplicationsUseCaseImpl
@@ -220,15 +222,28 @@ val provideNetworkModule = module {
     }
 
     single<RejectApplicationUseCase> {
-        RejectApplicationUseCaseImpl(applicationService = get())
+        RejectApplicationUseCaseImpl(
+            applicationService = get(),
+            tokenSupport = get()
+        )
     }
 
     single<CompleteApplicationUseCase> {
-        CompleteApplicationUseCaseImpl(applicationService = get())
+        CompleteApplicationUseCaseImpl(
+            applicationService = get(),
+            tokenSupport = get()
+        )
     }
 
     single<CancelApplicationUseCase> {
         CancelApplicationUseCaseImpl(
+            applicationService = get(),
+            tokenSupport = get()
+        )
+    }
+
+    single<AssigneeApplicationUseCase> {
+        AssigneeApplicationUseCaseImpl(
             applicationService = get(),
             tokenSupport = get()
         )

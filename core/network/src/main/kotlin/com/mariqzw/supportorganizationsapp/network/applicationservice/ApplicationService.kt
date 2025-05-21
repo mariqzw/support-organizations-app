@@ -41,13 +41,15 @@ interface ApplicationService {
 
     suspend fun startApplication(applicationId: Long) : Result<ApplicationResponse>
 
-    suspend fun rejectApplication(applicationId: Long) : Result<ApplicationResponse>
+    suspend fun rejectApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
-    suspend fun completeApplication(applicationId: Long) : Result<ApplicationResponse>
+    suspend fun completeApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
     suspend fun cancelApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
     suspend fun acceptApplication(applicationId: Long, companionId: Long) : Result<ApplicationResponse>
+
+    suspend fun assigneeApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
 }
 
@@ -174,7 +176,7 @@ class KtorApplicationService(
         }
     }
 
-    override suspend fun rejectApplication(applicationId: Long) = withContext(dispatcher) {
+    override suspend fun rejectApplication(token: String, applicationId: Long) = withContext(dispatcher) {
         client.request<ApplicationResponse> {
             post {
                 url {
@@ -183,11 +185,12 @@ class KtorApplicationService(
                     port = 8080
                     path("applications", applicationId.toString(), "reject")
                 }
+                bearerAuth(token = token)
             }
         }
     }
 
-    override suspend fun completeApplication(applicationId: Long) = withContext(dispatcher) {
+    override suspend fun completeApplication(token: String, applicationId: Long) = withContext(dispatcher) {
         client.request<ApplicationResponse> {
             post {
                 url {
@@ -196,6 +199,7 @@ class KtorApplicationService(
                     port = 8080
                     path("applications", applicationId.toString(), "complete")
                 }
+                bearerAuth(token = token)
             }
         }
     }
@@ -224,6 +228,21 @@ class KtorApplicationService(
                     path("applications", applicationId.toString(), "accept")
                     parameter("companionId", companionId.toString())
                 }
+            }
+        }
+    }
+
+    override suspend fun assigneeApplication(token: String, applicationId: Long) = withContext(dispatcher) {
+        client.request<ApplicationResponse> {
+            put {
+                url {
+                    protocol = URLProtocol.HTTP
+                    host = apiHost
+                    port = 8080
+                    path("applications", applicationId.toString(), "assigned")
+                    contentType(ContentType.Application.Json)
+                }
+                bearerAuth(token)
             }
         }
     }
