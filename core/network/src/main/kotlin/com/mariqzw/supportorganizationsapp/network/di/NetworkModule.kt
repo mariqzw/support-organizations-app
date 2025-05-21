@@ -207,7 +207,10 @@ val provideNetworkModule = module {
     }
 
     single<CreateApplicationUseCase> {
-        CreateApplicationUseCaseImpl(applicationService = get())
+        CreateApplicationUseCaseImpl(
+            applicationService = get(),
+            tokenSupport = get()
+        )
     }
 
     single<StartApplicationUseCase> {
@@ -223,6 +226,9 @@ val provideNetworkModule = module {
     }
 
     single<CancelApplicationUseCase> {
-        CancelApplicationUseCaseImpl(applicationService = get())
+        CancelApplicationUseCaseImpl(
+            applicationService = get(),
+            tokenSupport = get()
+        )
     }
 }

@@ -127,7 +127,6 @@ fun DatePickerTextField(
         dateFormat.format(Date(it))
     } ?: ""
 
-    // Инпут для отображения выбранной даты
     PrimaryTextField(
         modifier = modifier.clickable { isDatePickerVisible = true },
         value = formattedDate,
@@ -153,7 +152,7 @@ fun DatePickerTextField(
 
 @Composable
 @Preview
-fun DatePickerModalInput() {
+fun DatePickerModalInputPreview() {
     Scaffold { innerPadding ->
         DatePickerTextField(
             modifier = Modifier.padding(innerPadding),

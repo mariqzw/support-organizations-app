@@ -5,15 +5,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.mariqzw.supportorganizationsapp.addapplications.presentation.viewmodels.AddApplicationViewModel
 import com.mariqzw.supportorganizationsapp.ui.components.buttons.PrimaryButton
 import com.mariqzw.supportorganizationsapp.ui.components.fields.AdvancedTimePickerTextField
 import com.mariqzw.supportorganizationsapp.ui.components.fields.DatePickerTextField
@@ -21,95 +23,99 @@ import com.mariqzw.supportorganizationsapp.ui.components.fields.PrimaryTextField
 import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
 import com.mariqzw.supportorganizationsapp.ui.theme.SupportOrganizationsAppTheme
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
+import org.koin.androidx.compose.koinViewModel
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @SuppressLint("DefaultLocale")
 @Composable
 fun AddApplicationScreen(
-    onSendClick: () -> Unit
+    viewModel: AddApplicationViewModel = koinViewModel()
 ) {
-    var date by remember { mutableStateOf("") }
-    var time by remember { mutableStateOf("") }
-    var startPoint by remember { mutableStateOf("") }
-    var endPoint by remember { mutableStateOf("") }
-    var comment by remember { mutableStateOf("") }
+    val date by viewModel.date.collectAsState()
+    val time by viewModel.time.collectAsState()
+    val startPoint by viewModel.startPoint.collectAsState()
+    val endPoint by viewModel.endPoint.collectAsState()
+    val comment by viewModel.comment.collectAsState()
+    val alertMessage by viewModel.alertMessage.collectAsState()
 
     val dimensions = LocalDimensions.current
-//    val scrollState = rememberScrollState()
 
     SupportOrganizationsAppTheme {
-        Surface(
-            color = backgroundLight
-        ) {
+        Surface(color = backgroundLight) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-//                .verticalScroll(scrollState)
                     .padding(
                         horizontal = dimensions.horizontalMedium,
                         vertical = dimensions.verticalXSmall
                     ),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement
-                    .spacedBy(dimensions.verticalMedium)
+                verticalArrangement = Arrangement.spacedBy(dimensions.verticalMedium)
             ) {
                 DatePickerTextField(
                     label = "Дата",
-                    onDateSelected = {
-                        // Do nothing
-                    }
+                    initialDate = date.takeIf { it.isNotBlank() }?.let {
+                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(it)?.time
+                    },
+                    onDateSelected = { millis -> viewModel.onDateChanged(millis) }
                 )
 
                 AdvancedTimePickerTextField(
                     label = "Время",
                     onTimeSelected = { hour, minute ->
-                        time = String.format("%02d:%02d", hour, minute)
+                        viewModel.onTimeChanged(String.format("%02d:%02d", hour, minute))
                     }
                 )
 
                 PrimaryTextField(
                     value = startPoint,
                     labelText = "Станция отправления",
-                    onValueChange = {
-                        startPoint = it
-                    }
+                    onValueChange = viewModel::onStartPointChanged
                 )
 
                 PrimaryTextField(
                     value = endPoint,
                     labelText = "Станция назначения",
-                    onValueChange = {
-                        endPoint = it
-                    }
+                    onValueChange = viewModel::onEndPointChanged
                 )
 
                 PrimaryTextField(
                     value = comment,
                     labelText = "Комментарий",
-                    onValueChange = {
-                        comment = it
-                    },
+                    onValueChange = viewModel::onCommentChanged,
                     singleLine = false,
                     maxLines = 10,
-                    modifier = Modifier
-                        .weight(1f)
+                    modifier = Modifier.weight(1f)
                 )
 
                 PrimaryButton(
                     text = "Отправить",
-                    onButtonClick = onSendClick
+                    onButtonClick = { viewModel.sendApplication() }
+                )
+            }
+
+            val message = alertMessage
+            if (message != null) {
+                AlertDialog(
+                    onDismissRequest = { viewModel.dismissAlert() },
+                    confirmButton = {
+                        TextButton(onClick = { viewModel.dismissAlert() }) {
+                            Text("ОК")
+                        }
+                    },
+                    text = {
+                        Text(text = message)
+                    }
                 )
             }
         }
     }
-
 }
 
 @Composable
 @Preview
 fun AddApplicationScreenPreview() {
     AddApplicationScreen(
-        onSendClick = {
-            // Do nothing
-        }
     )
 }

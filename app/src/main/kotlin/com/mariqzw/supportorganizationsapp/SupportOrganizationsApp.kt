@@ -1,6 +1,7 @@
 package com.mariqzw.supportorganizationsapp
 
 import android.app.Application
+import com.mariqzw.supportorganizationsapp.addapplications.di.provideAddApplicationsModule
 import com.mariqzw.supportorganizationsapp.applications.di.provideApplicationsModule
 import com.mariqzw.supportorganizationsapp.auth.di.provideAuthModule
 import com.mariqzw.supportorganizationsapp.common.di.provideCoroutineScopesModule
@@ -45,6 +46,9 @@ class SupportOrganizationsApp : Application() {
 
             // feature:ui-applications modules
             modules(provideApplicationsModule)
+
+            // feature:ui-add-applications modules
+            modules(provideAddApplicationsModule)
 
             // feature:ui-profile modules
             modules(provideProfileModule)
