@@ -27,8 +27,6 @@ interface ApplicationService {
 
     suspend fun getApplicationById(applicationId: Long) : Result<ApplicationResponse>
 
-    suspend fun updateApplication(applicationId: Long, model: UpdateApplicationRequest) : Result<ApplicationResponse>
-
     suspend fun deleteApplication(token: String, applicationId: Long) : Boolean
 
     suspend fun getAllApplications(token: String) : Result<List<ApplicationResponse>>
@@ -39,15 +37,11 @@ interface ApplicationService {
 
     suspend fun createApplication(token: String, model: CreateApplicationRequest) : Result<ApplicationResponse>
 
-    suspend fun startApplication(applicationId: Long) : Result<ApplicationResponse>
-
     suspend fun rejectApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
     suspend fun completeApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
     suspend fun cancelApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
-
-    suspend fun acceptApplication(applicationId: Long, companionId: Long) : Result<ApplicationResponse>
 
     suspend fun assigneeApplication(token: String, applicationId: Long) : Result<ApplicationResponse>
 
@@ -68,21 +62,6 @@ class KtorApplicationService(
                     path("applications", applicationId.toString())
                 }
                 setBody(applicationId)
-            }
-        }
-    }
-
-    override suspend fun updateApplication(applicationId: Long, model: UpdateApplicationRequest) = withContext(dispatcher) {
-        client.request<ApplicationResponse> {
-            put {
-                url {
-                    protocol = URLProtocol.HTTP
-                    host = apiHost
-                    port = 8080
-                    path("applications", applicationId.toString())
-                    contentType(ContentType.Application.Json)
-                }
-                setBody(model)
             }
         }
     }
@@ -163,19 +142,6 @@ class KtorApplicationService(
         }
     }
 
-    override suspend fun startApplication(applicationId: Long) = withContext(dispatcher) {
-        client.request<ApplicationResponse> {
-            post {
-                url {
-                    protocol = URLProtocol.HTTP
-                    host = apiHost
-                    port = 8080
-                    path("applications", applicationId.toString(), "start")
-                }
-            }
-        }
-    }
-
     override suspend fun rejectApplication(token: String, applicationId: Long) = withContext(dispatcher) {
         client.request<ApplicationResponse> {
             post {
@@ -214,20 +180,6 @@ class KtorApplicationService(
                     path("applications", applicationId.toString(), "cancel")
                 }
                 bearerAuth(token = token)
-            }
-        }
-    }
-
-    override suspend fun acceptApplication(applicationId: Long, companionId: Long) = withContext(dispatcher) {
-        client.request<ApplicationResponse> {
-            post {
-                url {
-                    protocol = URLProtocol.HTTP
-                    host = apiHost
-                    port = 8080
-                    path("applications", applicationId.toString(), "accept")
-                    parameter("companionId", companionId.toString())
-                }
             }
         }
     }

@@ -16,8 +16,6 @@ import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.Get
 import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.GetAllNewWithoutCompanionUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.GetApplicationByIdUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.RejectApplicationUseCase
-import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.StartApplicationUseCase
-import com.mariqzw.supportorganizationsapp.domain.usecase.applicationservice.UpdateApplicationUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.authservice.RefreshTokenUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.authservice.RegisterCompanionUseCase
 import com.mariqzw.supportorganizationsapp.domain.usecase.authservice.RegisterUseCase
@@ -36,8 +34,6 @@ import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.De
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.GetAllApplicationsUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.GetApplicationByIdUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.RejectApplicationUseCaseImpl
-import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.StartApplicationUseCaseImpl
-import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.UpdateApplicationUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.CreateApplicationUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.CancelApplicationUseCaseImpl
 import com.mariqzw.supportorganizationsapp.network.applicationservice.usecase.GetAllApplicationsByCompanionUseCaseImpl
@@ -179,10 +175,6 @@ val provideNetworkModule = module {
         GetApplicationByIdUseCaseImpl(applicationService = get())
     }
 
-    single<UpdateApplicationUseCase> {
-        UpdateApplicationUseCaseImpl(applicationService = get())
-    }
-
     single<DeleteApplicationUseCase> {
         DeleteApplicationUseCaseImpl(
             applicationService = get(),
@@ -215,10 +207,6 @@ val provideNetworkModule = module {
             applicationService = get(),
             tokenSupport = get()
         )
-    }
-
-    single<StartApplicationUseCase> {
-        StartApplicationUseCaseImpl(applicationService = get())
     }
 
     single<RejectApplicationUseCase> {
