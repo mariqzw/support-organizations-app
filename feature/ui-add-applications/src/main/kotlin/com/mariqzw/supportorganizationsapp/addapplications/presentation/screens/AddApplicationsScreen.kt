@@ -1,6 +1,8 @@
 package com.mariqzw.supportorganizationsapp.addapplications.presentation.screens
 
+import AutoCompleteTextField
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,9 +14,12 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import com.mariqzw.supportorganizationsapp.addapplications.R
 import com.mariqzw.supportorganizationsapp.addapplications.presentation.viewmodels.AddApplicationViewModel
 import com.mariqzw.supportorganizationsapp.ui.components.buttons.PrimaryButton
 import com.mariqzw.supportorganizationsapp.ui.components.fields.AdvancedTimePickerTextField
@@ -24,6 +29,7 @@ import com.mariqzw.supportorganizationsapp.ui.theme.LocalDimensions
 import com.mariqzw.supportorganizationsapp.ui.theme.SupportOrganizationsAppTheme
 import com.mariqzw.supportorganizationsapp.ui.theme.backgroundLight
 import org.koin.androidx.compose.koinViewModel
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -40,6 +46,15 @@ fun AddApplicationScreen(
     val alertMessage by viewModel.alertMessage.collectAsState()
 
     val dimensions = LocalDimensions.current
+
+    val context = LocalContext.current
+
+    // Читаем stations из raw прямо здесь
+    val stations = remember {
+        context.resources.openRawResource(R.raw.stations).bufferedReader().useLines { lines ->
+            lines.map { it.trim() }.filter { it.isNotEmpty() }.toList()
+        }
+    }
 
     SupportOrganizationsAppTheme {
         Surface(color = backgroundLight) {
@@ -68,17 +83,33 @@ fun AddApplicationScreen(
                     }
                 )
 
-                PrimaryTextField(
+                AutoCompleteTextField(
                     value = startPoint,
+                    onValueChange = viewModel::onStartPointChanged,
+                    onSuggestionSelected = viewModel::onStartPointChanged,
                     labelText = "Станция отправления",
-                    onValueChange = viewModel::onStartPointChanged
+                    suggestions = stations
                 )
 
-                PrimaryTextField(
+                AutoCompleteTextField(
                     value = endPoint,
+                    onValueChange = viewModel::onEndPointChanged,
+                    onSuggestionSelected = viewModel::onEndPointChanged,
                     labelText = "Станция назначения",
-                    onValueChange = viewModel::onEndPointChanged
+                    suggestions = stations
                 )
+
+//                PrimaryTextField(
+//                    value = startPoint,
+//                    labelText = "Станция отправления",
+//                    onValueChange = viewModel::onStartPointChanged
+//                )
+//
+//                PrimaryTextField(
+//                    value = endPoint,
+//                    labelText = "Станция назначения",
+//                    onValueChange = viewModel::onEndPointChanged
+//                )
 
                 PrimaryTextField(
                     value = comment,
